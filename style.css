@@ -1,0 +1,102 @@
+/* テーブル全体の基本設定 */
+.timetable {
+  width: min(100%,600px);      /* 幅の指定が必須 */
+  margin: 0 auto;    /* 左右の余白が自動で均等になる */
+  border-collapse: collapse;
+  font-family: "Arial", "BIZ UDGothic";
+}
+
+.timetable th,
+.timetable td {
+  vertical-align: middle;
+  border: 1px solid #ccc;
+  height: 24px;
+}
+
+.timetable th {
+  background-color: #f2f2f2;
+}
+
+/* 時間軸の列 */
+.hour {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: top;
+  font-size: 1.1rem;
+  /* width: 20px; */
+}
+
+
+/* 数字幅を固定 */
+.minutes {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 分と文字ブロックを横に並べる */
+.time-item {
+  display: inline-flex;
+  align-items: center;
+  /* 数字と右側ブロックの上下中央を合わせる */
+  padding: 2px 10px;
+  /* 時間ごとの間隔 */
+  height: 30px;
+  width: 90px;
+}
+
+/* 2桁の分（数字） */
+.num {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* 種別と行き先を縦に2行積む */
+.labels {
+  display: flex;
+  flex-direction: column;
+  /* 縦並びにする */
+  font-size: 0.65em;
+  /* 文字サイズを小さく */
+  line-height: 1.1;
+  /* 行間を詰める */
+  margin-left: 2px;
+  /* 数字との隙間 */
+  text-align: left;
+}
+
+
+.local {
+  color: #000000;
+  /* font-weight: bold; */
+}
+
+.express {
+  color: #e60000;
+  /* font-weight: bold; */
+}
+
+
+.rapid {
+  color: #0000e6;
+  /* font-weight: bold; */
+}
+
+.type,
+.dest {
+  text-align: left;
+  display: block;
+  /* 高さを有効化 */
+  min-height: 1.1em;
+  /* line-height と同じ高さ（1文字分）を確保 */
+}
+
+/* 種別の装飾 */
+/* .type { */
+/* color: #333; */
+/* font-weight: bold; */
+/* } */
+
+/* 行き先の装飾 */
+/* .dest { */
+/* color: #000; */
+/* } */

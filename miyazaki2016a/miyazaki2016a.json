@@ -1,0 +1,9 @@
+{
+    "line_name": "日豊本線",
+    "station_name": "宮崎駅",
+    "direction": {
+        "main": "延岡・佐伯方面",
+        "sub": "上り"
+    },
+    "revision_date": "2016年3月26日"
+}
