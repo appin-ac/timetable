@@ -30,13 +30,17 @@ line_name_s = html.escape(str(line_name))
 station_name = config.get("station_name", {})
 station_name_s = html.escape(str(station_name))
 
+direction = config.get("direction", {})
+direction_main= direction.get("main",{})
+direction_main_s = html.escape(str(direction_main))
+
 revision_date = config.get("revision_date", {})
 revision_date_s = html.escape(str(revision_date))
 
 ### HTML 生成
 html = f'<div style="text-align: center;"><p><b>{line_name_s}　{station_name_s}　時刻表</b><br>{revision_date_s}改正</p></div>\n'
 
-html += '<table class="timetable"> <thead><tr><th>時</th><th></th></tr></thead>'
+html += f'<table class="timetable"> <thead><tr><th>時</th><th>{direction_main_s}</th></tr></thead>'
 
 # hour ごとにグループ化
 for hour, group in groupby(rows, key=lambda x: x["hour"]):
