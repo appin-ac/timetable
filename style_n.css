@@ -8,19 +8,6 @@
   font-family: "Arial", "BIZ UDGothic";
 }
 
-.timetable .legends th,
-.timetable .legends td {
-  border: none;
-  font-size: 0.7rem;
-  height: 16px;
-}
-
-.timetable .legends tr {
-  padding: 0px;
-}
-
-
-
 .timetable th,
 .timetable td {
   vertical-align: middle;
@@ -31,6 +18,8 @@
 .timetable th {
   background-color: #f2f2f2;
 }
+
+
 
 /* 時間軸の列 */
 .hour {
@@ -108,15 +97,27 @@
   /* line-height と同じ高さ（1文字分）を確保 */
 }
 
+/* 凡例 */
+.timetable .legends th,
+.timetable .legends td {
+  border: none;
+  font-size: 0.7rem;
+  height: 16px;
+}
+
+.timetable .legends tr {
+  padding: 0px;
+}
+
+
 @media (max-width: 768px) {
   .time-item {
     /* display: flex; */
     flex-direction: column;
     /* 縦並びにする */
     /* align-items: right;    必要に応じて中央揃え */
-    width: 35%;
-
-    height: 50px;
+    width: 38%;
+    height: 55px;
     position: relative;
     /* 位置決めの基準点にする */
   }
