@@ -112,35 +112,13 @@
 
 @media (max-width: 768px) {
   .time-item {
-    /* display: flex; */
-    flex-direction: column;
-    /* 縦並びにする */
-    /* align-items: right;    必要に応じて中央揃え */
-    width: 38%;
-    height: 55px;
-    position: relative;
-    /* 位置決めの基準点にする */
-  }
-
-  .labels {
-    order: 1;
-    /* 上に配置 */
-  }
-
-  .num {
-    order: 2;
-    /* 下に配置 */
-    position: absolute;
-    bottom: 0;
-    /* 親要素の一番下に固定する場合 */
+    display: inline-flex;
+    align-items: center;
+    /* 数字と右側ブロックの上下中央を合わせる */
+    padding: 2px 2%;
+    /* 時間ごとの間隔 */
+    height: 28px;
+    width: 96%;
   }
 }
 
-/* .time-item {
-  display: inline-flex;
-  align-items: center;
- 
-  padding: 2px 3%;
-  height: 30px;
-  width: 40%;
-} */
