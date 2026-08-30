@@ -1,20 +1,21 @@
 /* テーブル全体の基本設定 */
 .timetable {
-  width: min(100%,1000px);      /* 幅の指定が必須 */
-  margin: 0 auto;    /* 左右の余白が自動で均等になる */
+  width: min(100%, 1000px);
+  /* 幅の指定が必須 */
+  margin: 0 auto;
+  /* 左右の余白が自動で均等になる */
   border-collapse: collapse;
   font-family: "Arial", "BIZ UDGothic";
 }
 
 .timetable .legends th,
-.timetable .legends td
-{
+.timetable .legends td {
   border: none;
   font-size: 0.7rem;
   height: 16px;
 }
-.timetable .legends tr
-{
+
+.timetable .legends tr {
   padding: 0px;
 }
 
@@ -38,14 +39,16 @@
   text-align: center;
   vertical-align: top;
   font-size: 1.1rem;
-  width: 4%; 
+  width: 4%;
 }
 
 
 /* 数字幅を固定 */
 .minutes {
   font-variant-numeric: tabular-nums;
-  width: 24%; 
+  /* display: flex; */
+  /* flex-direction: row;  */
+  width: 24%;
 }
 
 /* 分と文字ブロックを横に並べる */
@@ -105,13 +108,38 @@
   /* line-height と同じ高さ（1文字分）を確保 */
 }
 
-/* 種別の装飾 */
-/* .type { */
-/* color: #333; */
-/* font-weight: bold; */
-/* } */
+@media (max-width: 768px) {
+  .time-item {
+    /* display: flex; */
+    flex-direction: column;
+    /* 縦並びにする */
+    /* align-items: right;    必要に応じて中央揃え */
+    width: 35%;
 
-/* 行き先の装飾 */
-/* .dest { */
-/* color: #000; */
-/* } */
+    height: 50px;
+    position: relative;
+    /* 位置決めの基準点にする */
+  }
+
+  .labels {
+    order: 1;
+    /* 上に配置 */
+  }
+
+  .num {
+    order: 2;
+    /* 下に配置 */
+    position: absolute;
+    bottom: 0;
+    /* 親要素の一番下に固定する場合 */
+  }
+}
+
+/* .time-item {
+  display: inline-flex;
+  align-items: center;
+ 
+  padding: 2px 3%;
+  height: 30px;
+  width: 40%;
+} */
