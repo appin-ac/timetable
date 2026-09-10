@@ -40,6 +40,8 @@ def write_page(station,year):
     ### HTML 生成
     html_codes = f'<div style="text-align: center;"><p><b>{line_name_s}　{station_name_s}　時刻表</b><br>{revision_date_s}改正</p></div>\n'
 
+    html_codes +='<div style="text-align: center;">\n<select onchange="if(this.value) location.href=this.value;">\n<option value="">他の年の時刻表を見る</option>\n<option value="../miyazaki_a/2026.html">2026</option>\n<option value="../miyazaki_a/2025.html">2025</option><option value="../miyazaki_a/2024.html">2024</option><option value="../miyazaki_a/2022.html">2022</option><option value="../miyazaki_a/2020.html">2020</option><option value="../miyazaki_a/2019.html">2019</option><option value="../miyazaki_a/2016.html">2016</option></select>\n　\n</div>'
+
     html_codes += f'<table class="timetable"> <thead><tr><th>時</th><th>{direction_main_s}</th></tr></thead>'
 
     # hour ごとにグループ化

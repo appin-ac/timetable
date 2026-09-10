@@ -4,13 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 日豊本線宮崎駅時刻表</title>
+    <title>宮崎時刻表</title>
     <link href="../css/style.css" rel="stylesheet" type="text/css" media="all">
 </head>
 
 <body>
     <div style="text-align: center;"><p><b>日豊本線　宮崎駅　時刻表</b><br>2026年3月14日改正</p></div>
-<table class="timetable"> <thead><tr><th>時</th><th>延岡・佐伯方面</th></tr></thead>  <tr>
+<div style="text-align: center;">
+<select onchange="if(this.value) location.href=this.value;">
+<option value="">他の年の時刻表を見る</option>
+<option value="../miyazaki_a/2026.html">2026</option>
+<option value="../miyazaki_a/2025.html">2025</option><option value="../miyazaki_a/2024.html">2024</option><option value="../miyazaki_a/2022.html">2022</option><option value="../miyazaki_a/2020.html">2020</option><option value="../miyazaki_a/2019.html">2019</option><option value="../miyazaki_a/2016.html">2016</option></select>
+　
+</div><table class="timetable"> <thead><tr><th>時</th><th>延岡・佐伯方面</th></tr></thead>  <tr>
     <td class="hour">5</td>
     <td class="minutes">
       <span class="time-item express"><span class="num">47</span><span class="labels"><span class="type">にちりん2</span><span class="dest">大分</span></span></span>
@@ -148,15 +154,23 @@
     </td>
   </tr>
 </table></body></html>
-    <p>
+    <!-- <p>
         宮崎県内鉄道時刻表　<select id="category"></select>
         <select id="subCategory" disabled></select>
         <button id="submitBtn" disabled>この時刻表を見る</button>
         <script src="../scripts/main.js"></script>
+    </p> -->
+     <div style="text-align: center;">
+    <p>
+        <select onchange="if(this.value) location.href=this.value;">
+            <option value="">路線・駅を選択してください</option>
+            <option value="../miyazaki_a/2026.html">日豊本線宮崎駅</option>
+            <option value="../nichinan/2026.html">日南線南宮崎駅・油津駅・志布志駅</option>
+        </select>
     </p>
     <p>
         <a href="../index.html">ホームに戻る </a>　
-    <!-- 
+        <!-- 
     <p>他の年の時刻表</p>
     <p>
         <a href="../miyazaki2016a/index.html">2016 </a>　
@@ -171,8 +185,9 @@
 
         <a href="../miyazaki2025a/index.html">2025 </a>　
 
-        <a href="../miyazaki2026a/index.html">2026 </a>　
-    </p> -->
+        <a href="../miyazaki2026a/index.html">2026 </a>-->　
+    </p> 
+    </div>
 </body>
 
 </html>
