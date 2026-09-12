@@ -1,0 +1,9 @@
+{
+    "line_name": "日豊本線",
+    "station_name": "宮崎駅",
+    "direction": {
+        "main": "南宮崎・都城・隼人・鹿児島・鹿児島中央方面",
+        "sub": "下り"
+    },
+    "revision_date": "2026年3月14日"
+}

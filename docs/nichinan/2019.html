@@ -371,16 +371,17 @@
 </body>
 
 </html>
-
 <p>
-  宮崎県内鉄道時刻表　<select id="category"></select>
-  <select id="subCategory" disabled></select>
-  <button id="submitBtn" disabled>この時刻表を見る</button>
-  <script src="../scripts/main.js"></script>
+  <select onchange="if(this.value) location.href=this.value;">
+    <option value="">路線・駅を選択してください</option>
+    <option value="../miyazaki_a/2026.html">日豊本線宮崎駅（上り）延岡・佐伯方面方面</option>
+    <option value="../miyazaki_b/2026.html">日豊本線宮崎駅（下り）南宮崎・都城・隼人・鹿児島・鹿児島中央方面方面</option>
+    <option value="../nichinan/2026.html">日南線南宮崎駅・油津駅・志布志駅（上下線）方面</option>
+  </select>
 </p>
 <p>
   <a href="../index.html">ホームに戻る </a>　
 </p>
-  </body>
+</body>
 
-  </html>
+</html>

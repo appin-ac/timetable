@@ -10,7 +10,7 @@
 
 <body>
   <div style="text-align: center;">
-    <h4>新・せかPの部屋　コンテンツ一覧</h4>
+    <h4>趣味の部屋　コンテンツ一覧</h4>
 
     <!-- 宮崎県内鉄道時刻表　<select id="category"></select>
     <select id="subCategory" disabled></select>
@@ -20,14 +20,17 @@
     <p>下のプルダウンから路線・駅を選択すると最新の時刻表を閲覧できます。<br>
       時刻表のページでは、他の年のデータを選択することができます。
     </p>
-
-    <select onchange="if(this.value) location.href=this.value;">
-      <option value="">路線・駅を選択してください</option>
-      <option value="./miyazaki_a/2026.html">日豊本線宮崎駅</option>
-      <option value="./nichinan/2026.html">日南線南宮崎駅・油津駅・志布志駅</option>
-    </select>
-    <p> <img src="img/DSC_2607.JPG" alt="吉松駅のホーム" width="800"></p>
-
+    <p>
+      <select onchange="if(this.value) location.href=this.value;">
+        <option value="">路線・駅を選択してください</option>
+        <option value="../miyazaki_a/2026.html">日豊本線宮崎駅（上り）延岡・佐伯方面方面</option>
+        <option value="../miyazaki_b/2026.html">日豊本線宮崎駅（下り）南宮崎・都城・隼人・鹿児島・鹿児島中央方面方面</option>
+        <option value="../nichinan/2026.html">日南線南宮崎駅・油津駅・志布志駅（上下線）方面</option>
+      </select>
+    </p>
+    <p> 
+      <img src="img/DSC_2607.JPG" alt="吉松駅のホーム" width="800"></p>
+    </p>
 
 
 </body>
