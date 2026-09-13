@@ -13,12 +13,17 @@ folder_path = Path("../data")
 subfolders = [f.name for f in folder_path.iterdir() if f.is_dir()]
 print(subfolders)
 
-pd_html = ""
+
+### main ###
+def main():
+    pd_sta = get_pulldown()
+    for station in subfolders:
+        write_page(station,pd_sta)
 
 
 def get_pulldown():
-    global pd_html
-    pd_html += '<select onchange="if(this.value) location.href=this.value;">\n            <option value="">路線・駅を選択してください</option>'
+    
+    pd_html = '<select onchange="if(this.value) location.href=this.value;">\n            <option value="">路線・駅を選択してください</option>'
 
     for station in subfolders:
         print("../data/" + station)
@@ -42,11 +47,16 @@ def get_pulldown():
         direction_sub = direction.get("sub", {})
         direction_sub_s = html.escape(str(direction_sub))
         pd_html+='<option value="../' +station+ "/"+json_files[-1]+'.html">'
-        pd_html+=(line_name_s+station_name_s+"（"+direction_sub_s+"）"+direction_main_s+"方面</option>\n")
+        pd_html+=(line_name_s+" "+station_name_s)
+        
+        if direction_sub_s!= "":
+             pd_html+=("（"+direction_sub_s+"）")
+        pd_html+=(direction_main_s+"</option>\n")
     pd_html+="</select>\n"
+    return pd_html
 
 ### station の各年の時刻表をまとめて更新
-def write_page(station):
+def write_page(station,pd_sta):
     # csv読み込み
     folder_path1 = Path("../data/" + station)
     excel_files = [
@@ -56,11 +66,11 @@ def write_page(station):
     # テンプレート読み込み
     with open("template.html", "r", encoding="utf-8") as f:
         template = f.read()
-    pulldown = '<div style="text-align: center;">\n<select onchange="if(this.value) location.href=this.value;">\n<option value="">他の年の時刻表を見る</option>\n'
+    pd_year = '<div style="text-align: center;">\n<select onchange="if(this.value) location.href=this.value;">\n<option value="">他の年の時刻表を見る</option>\n'
 
     # プルダウン作成
     for csv_file in excel_files:
-        pulldown += (
+        pd_year += (
             '<option value="../miyazaki_a/'
             + csv_file
             + '.html">'
@@ -68,14 +78,14 @@ def write_page(station):
             + "</option>\n"
         )
 
-    pulldown += "</select>\n　\n</div>"
+    pd_year += "</select>\n　\n</div>"
 
     # 時刻表作成
     for year in excel_files:
 
-        html_codes = get_head(station, year) + pulldown + get_table(station, year)
+        html_codes = get_head(station, year) + pd_year + get_table(station, year)
 
-        final_html = template.format(insert=html_codes, station_pulldown=pd_html)
+        final_html = template.format(insert=html_codes, station_pulldown=pd_sta)
 
         # フォルダが存在しない場合のみ作成
         doc_path = Path("../docs/" + station)
@@ -144,9 +154,5 @@ def get_table(station, year):
     return table_codes
 
 
-### main ###
-
-get_pulldown()
-
-for station in subfolders:
-    write_page(station)
+if __name__ == "__main__":
+    main()
