@@ -23,7 +23,7 @@ def main():
 
 def get_pulldown():
     
-    pd_html = '<select onchange="if(this.value) location.href=this.value;">\n            <option value="">路線・駅を選択してください</option>'
+    pd_html = '<select onchange="if(this.value) location.href=this.value;">\n<option value="">路線・駅を選択してください</option>\n'
 
     for station in subfolders:
         print("../data/" + station)
@@ -71,7 +71,7 @@ def write_page(station,pd_sta):
     # プルダウン作成
     for csv_file in excel_files:
         pd_year += (
-            '<option value="../miyazaki_a/'
+            '<option value="../'+station+'/'
             + csv_file
             + '.html">'
             + csv_file
@@ -134,12 +134,12 @@ def get_table(station, year):
     direction_main_s = html.escape(str(direction_main))
 
     ### HTML 生成
-    table_codes = f'<table class="timetable"> <thead><tr><th>時</th><th>{direction_main_s}</th></tr></thead>'
+    table_codes = f'<table class="timetable"><thead><tr><th>時</th><th>{direction_main_s}</th></tr></thead>'
 
     # hour ごとにグループ化
     for hour, group in groupby(rows, key=lambda x: x["hour"]):
         table_codes += (
-            f'  <tr>\n    <td class="hour">{hour}</td>\n    <td class="minutes">\n'
+            f'<tr>\n<td class="hour">{hour}</td>\n<td class="minutes">\n'
         )
         for t in group:
             type_span = f'<span class="type">{t["type"]}</span>'
@@ -147,7 +147,7 @@ def get_table(station, year):
             dest_span = f'<span class="dest">{t["dest"]}{t["rem"]}</span>'
             # if t["dest"] else ""
             table_codes += f'<span class="time-item {t["color"]}"><span class="num">{str(t["minute"]).zfill(2)}</span><span class="labels">{type_span}{dest_span}</span></span>\n'
-        table_codes += "    </td>\n  </tr>\n"
+        table_codes += "</td>\n</tr>\n"
 
     table_codes += "</table></body></html>"
 
