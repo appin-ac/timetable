@@ -1,62 +1,89 @@
 import csv
 import html
 import json
-import sys
 from itertools import groupby
 from pathlib import Path
 
 ### ファイルの置かれているフォルダをカレントディレクトリに
 BASE_DIR = Path(__file__).resolve().parent
-# 対象のフォルダパスを指定
-folder_path = Path("../data")
-# サブフォルダの Path オブジェクトのリストを取得
-subfolders = [f.name for f in folder_path.iterdir() if f.is_dir()]
-print(subfolders)
 
 
 ### main ###
 def main():
-    pd_sta = get_pulldown()
+
+    # 対象のフォルダパスを指定
+    folder_path = Path("../data")
+    # サブフォルダの Path オブジェクトのリストを取得
+    subfolders = [f.name for f in folder_path.iterdir() if f.is_dir()]
+
+    print(subfolders)
+
+    index_info={}
     for station in subfolders:
-        write_page(station,pd_sta)
-
-
-def get_pulldown():
-    
-    pd_html = '<select onchange="if(this.value) location.href=this.value;">\n<option value="">路線・駅を選択してください</option>\n'
-
-    for station in subfolders:
-        print("../data/" + station)
         folder_pathx = Path("../data/" + station)
         json_files = [
             f.stem for f in folder_pathx.iterdir() if f.suffix.lower()==".json"
         ]
         if len(json_files)==0:
             return
-        with open(
-            "../data/" + station + "/" + json_files[0] + ".json", "r", encoding="utf-8"
-        ) as f:
-            config = json.load(f)
-        station_name = config.get("station_name", {})
-        station_name_s = html.escape(str(station_name))
-        line_name = config.get("line_name", {})
-        line_name_s = html.escape(str(line_name))
-        direction = config.get("direction", {})
-        direction_main = direction.get("main", {})
-        direction_main_s = html.escape(str(direction_main))
-        direction_sub = direction.get("sub", {})
-        direction_sub_s = html.escape(str(direction_sub))
-        pd_html+='<option value="../' +station+ "/"+json_files[-1]+'.html">'
-        pd_html+=(line_name_s+" "+station_name_s)
+        station_dict_list ={}
+        for year in json_files:
+            dict ={}
+            with open(
+                "../data/" + station + "/" + year + ".json", "r", encoding="utf-8"
+            ) as f:
+                config = json.load(f)
+
+                line_name = config.get("line_name", {})
+                dict['line_name'] = html.escape(str(line_name))
+                
+                station_name = config.get("station_name", {})
+                dict['station_name'] = html.escape(str(station_name))
+                
+                direction = config.get("direction", {})
+                direction_main = direction.get("main", {})
+                dict['direction_main'] = html.escape(str(direction_main))
+                direction_sub = direction.get("sub", {})
+                dict['direction_sub'] = html.escape(str(direction_sub))
+            
+                revision_date = config.get("revision_date", {})
+                dict['revision_date'] = html.escape(str(revision_date))
+                
+            station_dict_list[year] =dict
+        index_info[station]=station_dict_list
+
+    pd_sta = get_pulldown(index_info)
+
+    for station in subfolders:
+        write_page(station,pd_sta,index_info[station])
+
+    # print(index_info)
+
+def get_pulldown(index_info):
+    
+    pd_html = '<select onchange="if(this.value) location.href=this.value;">\n<option value="">路線・駅を選択してください</option>\n'
+
+    for station in index_info:
+      
+        print("../data/" + station)
+
+        latest_year = next(reversed(index_info[station]))
+
+        dict = index_info[station][latest_year]
+
+        print(dict)
+        pd_html+='<option value="../' +station+ "/"+latest_year+'.html">'
+
+        pd_html+=(dict['line_name']+" "+dict['station_name'])
         
-        if direction_sub_s!= "":
-             pd_html+=("（"+direction_sub_s+"）")
-        pd_html+=(direction_main_s+"</option>\n")
+        if dict['direction_sub'] != "":
+             pd_html+=("（"+dict['direction_sub']+"）")
+        pd_html+=(dict['direction_main']+"</option>\n")
     pd_html+="</select>\n"
     return pd_html
 
 ### station の各年の時刻表をまとめて更新
-def write_page(station,pd_sta):
+def write_page(station,pd_sta,dict_station):
     # csv読み込み
     folder_path1 = Path("../data/" + station)
     excel_files = [
@@ -68,7 +95,7 @@ def write_page(station,pd_sta):
         template = f.read()
     pd_year = '<div style="text-align: center;">\n<select onchange="if(this.value) location.href=this.value;">\n<option value="">他の年の時刻表を見る</option>\n'
 
-    # プルダウン作成
+    # 年選択プルダウン作成
     for csv_file in excel_files:
         pd_year += (
             '<option value="../'+station+'/'
@@ -83,7 +110,7 @@ def write_page(station,pd_sta):
     # 時刻表作成
     for year in excel_files:
 
-        html_codes = get_head(station, year) + pd_year + get_table(station, year)
+        html_codes = get_head(station,year,dict_station[year]) + pd_year + get_table(station, year)
 
         final_html = template.format(insert=html_codes, station_pulldown=pd_sta)
 
@@ -98,20 +125,8 @@ def write_page(station,pd_sta):
             f.write(final_html)
 
 
-def get_head(station, year):
-    ### json（メタデータ）の読み込み
-    with open(f"../data/{station}/{year}.json", "r", encoding="utf-8") as f:
-        config = json.load(f)
-
-    line_name = config.get("line_name", {})
-    line_name_s = html.escape(str(line_name))
-
-    station_name = config.get("station_name", {})
-    station_name_s = html.escape(str(station_name))
-    revision_date = config.get("revision_date", {})
-    revision_date_s = html.escape(str(revision_date))
-
-    head_codes = f'<div style="text-align: center;"><p><b>{line_name_s}　{station_name_s}　時刻表</b><br>{revision_date_s}改正</p></div>\n'
+def get_head(station, year,dict):
+    head_codes = '<div style="text-align: center;"><p><b>'+dict['line_name']+'　'+dict['station_name']+'　時刻表</b><br>'+dict['revision_date']+'改正</p></div>\n'
 
     return head_codes
 
