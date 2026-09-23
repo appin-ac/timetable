@@ -1,0 +1,12 @@
+{
+    "line_name": "吉都線",
+    "station_name": "都城駅",
+    "direction": {
+        "main": "小林・吉松方面",
+        "sub": "下り"
+    },
+    "revision_date": "2001年3月3日",
+    "ledgends":{
+        "※1": "運転日注意"
+    }
+}
