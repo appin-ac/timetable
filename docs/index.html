@@ -7,20 +7,46 @@
     <title>日豊本線時刻表</title>
     <link href="./css/style_n.css" rel="stylesheet" type="text/css" media="all">
 </head>
-<h2>My Homepage</h2>
+
 
 <body>
+    <div class="top_contents">
+        <h2>My Homepage</h2>
+    </div>
     <div class="slideshow">
         <div class="slides">
-            <img src="./img/main_head_1.jpg" alt="">
+
+            <picture>
+                <source media="(max-width: 767px)" srcset="./img/main_head_1_s.jpg">
+                <img src="./img/main_head_1.jpg" alt="">
+            </picture>
+
+            <picture>
+                <source media="(max-width: 767px)" srcset="./img/main_head_2_s.jpg">
+                <img src="./img/main_head_2.jpg" alt="">
+            </picture>
+
+            <picture>
+                <source media="(max-width: 767px)" srcset="./img/main_head_3_s.jpg">
+                <img src="./img/main_head_3.jpg" alt="">
+            </picture>
+
+            <picture>
+                <source media="(max-width: 767px)" srcset="./img/main_head_1_s.jpg">
+                <img src="./img/main_head_1.jpg" alt="">
+            </picture>
+
+
+            <!-- <img src="./img/main_head_1.jpg" alt="">
             <img src="./img/main_head_2.jpg" alt="">
             <img src="./img/main_head_3.jpg" alt="">
-            <img src="./img/main_head_1.jpg" alt="">
+            <img src="./img/main_head_1.jpg" alt=""> -->
         </div>
     </div>
-    <div style="text-align: center;">
+    <div class="main_contents">
+        <hr>
         <h2>CONTENTS</h2>
-
+        <hr>
         <h3>宮崎県内主要駅時刻表（1991～2026）</h3>
         <p>下のプルダウンから路線・駅を選択すると最新の時刻表を閲覧できます。<br>
             時刻表のページでは、他の年のデータを選択することができます。1991年から約5年ごとのデータを閲覧できます。
@@ -35,13 +61,14 @@
 </select>
 
         </p>
-      
-          <h3>Under Construction</h3>
+
+        <hr>
+        <h3>Under Construction</h3>
         <p>
             今後の更新をお楽しみに！
         </p>
         <p>
-            
+
         </p>
 
     </div>
