@@ -1,0 +1,11 @@
+{
+    "line_name": "日豊本線",
+    "station_name": "延岡駅",
+    "direction": {
+        "main": "佐伯・大分方面",
+        "sub": "上り"
+    },
+    "revision_date": "2026年3月14日",
+    "ledgends":{
+    }
+}

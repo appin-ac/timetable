@@ -15,6 +15,7 @@ def main():
     folder_path = Path("../data")
     # サブフォルダの Path オブジェクトのリストを取得
     subfolders = [f.name for f in folder_path.iterdir() if f.is_dir()]
+    print(subfolders)
 
     index_info = {}
     for station in subfolders:
@@ -22,6 +23,8 @@ def main():
         json_files = [
             f.stem for f in folder_pathx.iterdir() if f.suffix.lower() == ".json"
         ]
+        print(folder_pathx)
+        print(json_files)
         if len(json_files) == 0:
             return
         station_dict_list = {}
@@ -68,6 +71,7 @@ def main():
 
     # 駅ごとに時刻表を更新
     for station in subfolders:
+        print(station)
         write_page(station, pd_sta, index_info[station])
 
     # print(index_info)
