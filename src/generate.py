@@ -106,6 +106,8 @@ def get_station_pulldown(index_info, depth=1):
             pd_html += "（" + dict["direction_sub"] + "）"
         pd_html += "</option>\n"
     pd_html += "</select>\n"
+
+    
     return pd_html
 
 

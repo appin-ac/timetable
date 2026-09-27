@@ -1,9 +1,20 @@
+body {
+  font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    "Noto Sans JP",
+    sans-serif;
+}
+
+
+
 /* テーブル全体の基本設定 */
 .timetable {
   width: min(100%,600px);      /* 幅の指定が必須 */
   margin: 0 auto;    /* 左右の余白が自動で均等になる */
   border-collapse: collapse;
-  font-family: "Arial", "BIZ UDGothic";
+  /* font-family: "Arial", "BIZ UDGothic"; */
 }
 
 .timetable th,

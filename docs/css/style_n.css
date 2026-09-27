@@ -1,3 +1,13 @@
+body {
+  font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    "Noto Sans JP",
+    sans-serif;
+}
+
+
 .slideshow {
     width: 100%;
     /* height: min(600px, 31.25vw); */
