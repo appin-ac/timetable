@@ -79,8 +79,9 @@ def main():
 
 def get_station_pulldown(index_info, depth=1):
 
-    pd_html = '<select onchange="if(this.value) location.href=this.value;">\n<option value="">路線・駅を選択してください</option>\n'
-
+    # pd_html = '<select onchange="if(this.value) location.href=this.value;">\n<option value="">路線・駅を選択してください</option>\n'
+    pd_html = "<b>掲載駅リスト</b>\n" 
+    line_dict={}
     for station in index_info:
 
         print("../data/" + station)
@@ -89,25 +90,50 @@ def get_station_pulldown(index_info, depth=1):
 
         dict = index_info[station][latest_year]
 
-        # print(dict)
-        pd_html += (
-            '<option value="'
-            + "." * depth
-            + "./"
-            + station
-            + "/"
-            + latest_year
-            + '.html">'
+        # pd_html += (
+        #     '<option value="'
+        #     + "." * depth
+        #     + "./"
+        #     + station
+        #     + "/"
+        #     + latest_year
+        #     + '.html">'
+        # )
+        
+        # # 日豊本線 宮崎駅
+        # page_title = dict["line_name"] + " " + dict["station_name"] + " "
+        
+        # # 延岡・佐伯方面
+        # page_title += dict["direction_main"]
+
+        # # （下り）
+        # if dict["direction_sub"] != "":
+        #     page_title += "（" + dict["direction_sub"] + "）"
+        
+        # pd_html += page_title+"</option>\n"
+
+        page_link =  (
+            '<a href="'
+            + "." * depth + "./" + station + "/" + latest_year  + '.html">'
+            + dict["station_name"] + " "
+            + ("（" + dict["direction_sub"] + "）" if dict["direction_sub"] != "" else "")
+            + dict["direction_main"]
+            + "</a><br><br>\n"
         )
 
-        pd_html += dict["line_name"] + " " + dict["station_name"] + " "
-        pd_html += dict["direction_main"]
-        if dict["direction_sub"] != "":
-            pd_html += "（" + dict["direction_sub"] + "）"
-        pd_html += "</option>\n"
-    pd_html += "</select>\n"
+        line_dict.setdefault(dict["line_name"],[]).append(page_link)
 
-    
+    print(line_dict)
+
+    # pd_html += "</select><br><br>\n"
+
+    for k,v in line_dict.items():
+        pd_html += ("<h4>"+k+"<h4>\n")
+        for x in v:
+            pd_html += x
+
+    print(pd_html)
+
     return pd_html
 
 
