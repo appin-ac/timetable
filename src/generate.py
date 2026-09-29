@@ -48,9 +48,8 @@ def main():
                 ledgends_j = config.get("ledgends", {})
                 # print(ledgends_j)
                 ledgends_dict = {}
-                ## escapeしてない
                 for k, v in ledgends_j.items():
-                    ledgends_dict[k] = v
+                    ledgends_dict[k] = html.escape(v)
                 dict["ledgends"] = ledgends_dict
 
             station_dict_list[year] = dict
@@ -224,11 +223,11 @@ def get_table(station, year, dict):
     for hour, group in groupby(rows, key=lambda x: x["hour"]):
         table_codes += f'<tr>\n<td class="hour">{hour}</td>\n<td class="minutes">\n'
         for t in group:
-            type_span = f'<span class="type">{t["type"]}</span>'
+            type_span = f'<span class="type">{html.escape(t["type"])}</span>'
             # if t["type"] else ""
-            dest_span = f'<span class="dest">{t["dest"]}{t["rem"]}</span>'
+            dest_span = f'<span class="dest">{html.escape(t["dest"])}{html.escape(t["rem"])}</span>'
             # if t["dest"] else ""
-            table_codes += f'<span class="time-item {t["color"]}"><span class="num">{str(t["minute"]).zfill(2)}</span><span class="labels">{type_span}{dest_span}</span></span>'
+            table_codes += f'<span class="time-item {t["color"]}"><span class="num">{str(html.escape(t["minute"])).zfill(2)}</span><span class="labels">{type_span}{dest_span}</span></span>'
         table_codes += "</td></tr>\n"
     table_codes += '<tr><td colspan="2">\n'  # <b>【凡例】</b><br>
     if "ledgends" in dict.keys():

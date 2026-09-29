@@ -49,10 +49,10 @@ body {
   display: inline-flex;
   align-items: center;
   /* 数字と右側ブロックの上下中央を合わせる */
-  padding: 2px 6px;
+  padding: 1px  1px 1px 3px ;
   /* 時間ごとの間隔 */
-  height: 28px;
-  width: 90px;
+  height: 30px;
+  width: 85px;
 }
 
 /* 2桁の分（数字） */
@@ -88,7 +88,7 @@ body {
 
 
 .rapid {
-  color: #0000e6;
+  color: #006eff;
   /* font-weight: bold; */
 }
 
