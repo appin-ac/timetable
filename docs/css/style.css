@@ -92,6 +92,11 @@ body {
   /* font-weight: bold; */
 }
 
+.linear {
+  color: #3a8f06;
+  /* font-weight: bold; */
+}
+
 .type,
 .dest {
   text-align: left;
