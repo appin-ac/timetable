@@ -11,7 +11,7 @@ body {
 
 /* テーブル全体の基本設定 */
 .timetable {
-  width: min(100%,600px);      /* 幅の指定が必須 */
+  width: min(100%,800px);      /* 幅の指定が必須 */
   margin: 0 auto;    /* 左右の余白が自動で均等になる */
   border-collapse: collapse;
   /* font-family: "Arial", "BIZ UDGothic"; */
@@ -52,7 +52,7 @@ body {
   padding: 1px  1px 1px 3px ;
   /* 時間ごとの間隔 */
   height: 30px;
-  width: 85px;
+  width: max(95px,15%);
 }
 
 /* 2桁の分（数字） */
