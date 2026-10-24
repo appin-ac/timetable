@@ -3,10 +3,24 @@ import html
 import json
 from itertools import groupby
 from pathlib import Path
+import markdown
+from jinja2 import Environment, FileSystemLoader
+from datetime import date
 
 ### ファイルの置かれているフォルダをカレントディレクトリに
 BASE_DIR = Path(__file__).resolve().parent
 
+
+ROOT = BASE_DIR.parent
+ARTICLES_DIR = ROOT / "articles"
+OUTPUT_DIR = ROOT / "docs" / "blog"
+env = Environment(
+    loader=FileSystemLoader(ROOT/"src"),
+    autoescape=True,
+)
+
+article_template = env.get_template("article.html")
+index_template = env.get_template("template_index.html")
 
 ### main ###
 def main():
@@ -17,7 +31,34 @@ def main():
     subfolders = [f.name for f in folder_path.iterdir() if f.is_dir()]
     print(subfolders)
 
+    # 時刻表ファイルのデータをリストに格納
     index_info = {}
+    correct_data_files(subfolders,index_info)
+
+    pd_sta = get_station_pulldown(index_info)
+
+    # index ページ書き込み
+    with open("./template_index.html", "r", encoding="utf-8") as f:
+        index_page = f.read()
+
+    print(get_station_pulldown(index_info,0))
+
+    
+    # with open("../docs/index.html", "w", encoding="utf-8") as f:
+    #     f.write(index_page_new)
+
+    # 駅ごとに時刻表を更新
+    for station in subfolders:
+        print(station)
+        write_page(station, pd_sta, index_info[station])
+
+
+
+    # ブログ+infrx更新
+    blog_update(get_station_pulldown(index_info,0))
+
+
+def correct_data_files(subfolders,index_info):
     for station in subfolders:
         folder_pathx = Path("../data/") / station
         json_files = [
@@ -55,31 +96,11 @@ def main():
             station_dict_list[year] = dict
         index_info[station] = station_dict_list
 
-    pd_sta = get_station_pulldown(index_info)
-
-    # index ページ書き込み
-    with open("./template_index.html", "r", encoding="utf-8") as f:
-        index_page = f.read()
-
-    print(get_station_pulldown(index_info,0))
-    index_page_new = index_page.format(pulldown_main=get_station_pulldown(index_info,0))
-    
-    with open("../docs/index.html", "w", encoding="utf-8") as f:
-        f.write(index_page_new)
-
-
-    # 駅ごとに時刻表を更新
-    for station in subfolders:
-        print(station)
-        write_page(station, pd_sta, index_info[station])
-
-    # print(index_info)
-
 
 def get_station_pulldown(index_info, depth=1):
 
     # pd_html = '<select onchange="if(this.value) location.href=this.value;">\n<option value="">路線・駅を選択してください</option>\n'
-    pd_html = "<b>掲載駅リスト</b>\n" 
+    pd_html = ""#"<b>掲載駅リスト</b>\n" 
     line_dict={}
     for station in index_info:
 
@@ -117,7 +138,7 @@ def get_station_pulldown(index_info, depth=1):
             + dict["station_name"] + " "
             + ("（" + dict["direction_sub"] + "）" if dict["direction_sub"] != "" else "")
             + dict["direction_main"]
-            + "</a><br><br>\n"
+            + "</a><br>\n"
         )
 
         line_dict.setdefault(dict["line_name"],[]).append(page_link)
@@ -134,7 +155,6 @@ def get_station_pulldown(index_info, depth=1):
     print(pd_html)
 
     return pd_html
-
 
 ### station の各年の時刻表をまとめて更新
 def write_page(station, pd_sta, dict_station):
@@ -242,6 +262,88 @@ def get_table(station, year, dict):
     table_codes += "</table>"
 
     return table_codes
+
+def load_article(path):
+    """Markdownファイルからメタデータと本文を読み込む。"""
+    source = path.read_text(encoding="utf-8")
+
+    if not source.startswith("---\n"):
+        raise ValueError(f"フロントマターがありません: {path.name}")
+
+    parts = source.split("---", 2)
+    if len(parts) != 3:
+        raise ValueError(f"フロントマターが不正です: {path.name}")
+
+    metadata = {}
+
+    for line in parts[1].strip().splitlines():
+        key, separator, value = line.partition(":")
+        if not separator:
+            raise ValueError(f"メタデータが不正です: {line}")
+
+        metadata[key.strip()] = value.strip()
+
+    title = metadata.get("title")
+    date_text = metadata.get("date")
+
+    if not title or not date_text:
+        raise ValueError(f"title と date は必須です: {path.name}")
+
+    # 日付形式と実在する日付を検証する
+    parsed_date = date.fromisoformat(date_text)
+    date_text = parsed_date.isoformat()
+
+    body_source = parts[2].strip()
+    body = markdown.markdown(body_source)
+
+    return {
+        "title": title,
+        "date": date_text,
+        "parsed_date": parsed_date,
+        "body": body,
+        "url": f"{path.stem}.html",
+        "url_x": f"./blog/{path.stem}.html",
+        "filename": path.stem,
+    }
+
+
+def blog_update(pulldown_part):
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    articles = []
+
+    for path in sorted(ARTICLES_DIR.glob("*.md")):
+        article = load_article(path)
+        articles.append(article)
+
+        html = article_template.render(
+            title=article["title"],
+            date=article["date"],
+            body=article["body"],
+        )
+
+        output_path = OUTPUT_DIR / article["url"]
+        output_path.write_text(html, encoding="utf-8")
+
+        print(f"生成: {output_path.relative_to(ROOT)}")
+
+    # 日付の新しい順。同じ日付ならファイル名順
+    articles.sort(
+        key=lambda article: (
+            article["parsed_date"],
+            article["filename"],
+        ),
+        reverse=True,
+    )
+
+    index_html = index_template.render(pulldown_main=pulldown_part,articles=articles)
+
+    (ROOT / "docs" / "index.html").write_text(
+        index_html,
+        encoding="utf-8",
+    )
+
+    print("生成: blog/index.html")
 
 
 if __name__ == "__main__":

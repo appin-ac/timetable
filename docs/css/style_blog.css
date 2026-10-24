@@ -1,0 +1,43 @@
+body {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: sans-serif;
+    line-height: 1.8;
+    color: #333;
+}
+
+.site-header {
+    background: #fbfafa;
+    color: #db1d2b;
+    padding: 16px 20px 0;
+}
+header {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+header a {
+    color: inherit;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+main {
+    margin: 32px 0;
+}
+
+.article-body img {
+    max-width: 100%;
+    height: auto;
+}
+
+footer {
+    padding-top: 16px;
+    border-top: 1px solid #ddd;
+}
+
+time {
+    color: #666;
+}

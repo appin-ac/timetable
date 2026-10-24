@@ -89,10 +89,40 @@
 }
 
 .main_contents {
-    text-align: center;
+    text-align: left;
     margin: 50px 10%;
 }
+.article-list {
+    list-style: none;
+    padding: 0;
+}
 
+.article-list li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.article-list time {
+    color: #666;
+    white-space: nowrap;
+}
+
+.article-list a {
+    color: #174f78;
+    text-decoration: none;
+}
+
+.article-list a:hover {
+    text-decoration: underline;
+}
+
+article time {
+    color: #666;
+    font-size: 0.9rem;
+}
 @keyframes slide {
     0% {
         transform: translateX(0);
