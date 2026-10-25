@@ -173,8 +173,7 @@ article time {
   /* 枠線を1本線にする */
 }
 
-.sta_link_list th,
-td {
+.sta_link_list th, .sta_link_list td {
   border: 1px solid #ccc;
   /* 枠線の太さと色 */
   padding: 8px;
