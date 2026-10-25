@@ -100,7 +100,7 @@ def correct_data_files(subfolders,index_info):
 def get_station_pulldown(index_info, depth=1):
 
     # pd_html = '<select onchange="if(this.value) location.href=this.value;">\n<option value="">路線・駅を選択してください</option>\n'
-    pd_html = ""#"<b>掲載駅リスト</b>\n" 
+    pd_html = "<table class=\"sta_link_list\"><tr><th>路線</th><th>駅</th></tr>\n"#"<b>掲載駅リスト</b>\n" 
     line_dict={}
     for station in index_info:
 
@@ -148,10 +148,11 @@ def get_station_pulldown(index_info, depth=1):
     # pd_html += "</select><br><br>\n"
 
     for k,v in line_dict.items():
-        pd_html += ("<h4>"+k+"<h4>\n")
+        pd_html += ("<tr><td>"+k+"</td>\n<td>")
         for x in v:
             pd_html += x
-
+        pd_html +=("</td></tr>\n")
+    pd_html += ("</table>\n")
     print(pd_html)
 
     return pd_html

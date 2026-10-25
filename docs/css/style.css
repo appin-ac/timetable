@@ -11,8 +11,10 @@ body {
 
 /* テーブル全体の基本設定 */
 .timetable {
-  width: min(100%,800px);      /* 幅の指定が必須 */
-  margin: 0 auto;    /* 左右の余白が自動で均等になる */
+  width: min(100%, 800px);
+  /* 幅の指定が必須 */
+  margin: 0 auto;
+  /* 左右の余白が自動で均等になる */
   border-collapse: collapse;
   /* font-family: "Arial", "BIZ UDGothic"; */
 }
@@ -49,10 +51,10 @@ body {
   display: inline-flex;
   align-items: center;
   /* 数字と右側ブロックの上下中央を合わせる */
-  padding: 1px  1px 1px 3px ;
+  padding: 1px 1px 1px 3px;
   /* 時間ごとの間隔 */
   height: 30px;
-  width: max(95px,15%);
+  width: max(95px, 15%);
 }
 
 /* 2桁の分（数字） */
@@ -107,12 +109,13 @@ body {
 }
 
 /* 凡例 */
-.timetable .legends th{
+.timetable .legends th {
   border: none;
   background-color: #ffffff;
   font-size: 0.75rem;
   height: 16px;
 }
+
 .timetable .legends td {
   border: none;
   font-size: 0.75rem;
@@ -121,4 +124,26 @@ body {
 
 .timetable .legends tr {
   padding: 0px;
+}
+
+
+.sta_link_list {
+  width: min(100%,600px);
+  border-collapse: collapse;
+  /* 枠線を1本線にする */
+}
+
+.sta_link_list th,
+td {
+  border: 1px solid #ccc;
+  /* 枠線の太さと色 */
+  padding: 8px;
+  /* セル内の余白 */
+  text-align: left;
+  /* 文字位置（left/center/right） */
+}
+
+.sta_link_list th {
+  background-color: #f2f2f2;
+  /* 見出しの背景色 */
 }

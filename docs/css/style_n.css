@@ -164,3 +164,26 @@ article time {
         margin: 20px 0%;
     }
 }
+
+
+
+.sta_link_list {
+  width: min(100%,600px);
+  border-collapse: collapse;
+  /* 枠線を1本線にする */
+}
+
+.sta_link_list th,
+td {
+  border: 1px solid #ccc;
+  /* 枠線の太さと色 */
+  padding: 8px;
+  /* セル内の余白 */
+  text-align: left;
+  /* 文字位置（left/center/right） */
+}
+
+.sta_link_list th {
+  background-color: #f2f2f2;
+  /* 見出しの背景色 */
+}
