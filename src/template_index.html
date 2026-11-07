@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>新・せかPの部屋</title>
-    <link href="./css/style_n.css" rel="stylesheet" type="text/css" media="all">
+    <link href="./css/style_index.css" rel="stylesheet" type="text/css" media="all">
 
-     <!-- OGP -->
+    <!-- OGP -->
     <meta property="og:title" content="新・せかPの部屋">
     <meta property="og:description" content="せかPの新しいホームページ。">
     <meta property="og:type" content="website">
-    <meta property="og:url"
-          content="https://appin-ac.github.io/timetable/index.html">
-    <meta property="og:image"
-          content="https://appin-ac.github.io/timetable/img/share.jpg">
+    <meta property="og:url" content="https://appin-ac.github.io/timetable/index.html">
+    <meta property="og:image" content="https://appin-ac.github.io/timetable/img/share.jpg">
 
     <!-- X（Twitter）向け -->
     <meta name="twitter:card" content="summary_large_image">
@@ -61,41 +59,60 @@
         </div>
     </div>
     <div class="main_contents">
-        <h1>ブログ 一覧</h1>
-        <p>なんか書きます。</p>
-        {% if articles %}
-        <ul class="article-list">
-            {% for article in articles %}
-            <li>
-                <time datetime="{{ article.date }}">
-                    {{ article.date | replace("-", ".")}}
-                </time>
-                <a href="{{ article.url_x }}">
-                    {{ article.title }}
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        <p>記事はまだありません。</p>
-        {% endif %}
+        <div class="item">
+            <h1>お知らせ</h1>
+            <ul class="article-list">
+                <li>
+                    <time>
+                        2026.11.07
+                    </time>
+                    ひなたフェスダイヤを掲載しました。
 
-        <h1>宮崎県内主要駅時刻表（1991～2026）</h1>
-        <p>下のリンクから路線・駅を選択すると最新の時刻表を閲覧できます。<br>
-            時刻表のページでは、他の年のデータを選択することができます。1991年から約5年ごとのデータを閲覧できます。
-        </p>
-        <p>
-            {{ pulldown_main | safe }}
-        </p>
+                </li>
+                <li>
+                    <time>
+                        2026.10.01
+                    </time>
+                    サイトを公開しました。
 
-        <hr>
-        <h3>Under Construction</h3>
-        <p>
-            今後の更新をお楽しみに！
-        </p>
-        <p>
+                </li>
+            </ul>
+            <h1>ブログ 一覧</h1>
+            <p>なんか書きます。</p>
+            {% if articles %}
+            <ul class="article-list">
+                {% for article in articles %}
+                <li>
+                    <time datetime="{{ article.date }}">
+                        {{ article.date | replace("-", ".")}}
+                    </time>
+                    <a href="{{ article.url_x }}">
+                        {{ article.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>記事はまだありません。</p>
+            {% endif %}
+        </div>
+        <div class="item">
+            <h1>宮崎県内主要駅時刻表（1991～2026）</h1>
+            <p>下のリンクから路線・駅を選択すると最新の時刻表を閲覧できます。<br>
+                時刻表のページでは、他の年のデータを選択することができます。1991年から約5年ごとのデータを閲覧できます。
+            </p>
+            <p>
+                {{ pulldown_main | safe }}
+            </p>
 
-        </p>
+            <hr>
+        </div>
+        <div class="item">
+            <h3>Under Construction</h3>
+            <p>
+                今後の更新をお楽しみに！
+            </p>
+        </div>
 
     </div>
 </body>
