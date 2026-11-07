@@ -7,6 +7,12 @@ body {
     sans-serif;
 }
 
+.foot {
+  margin-top: 80px;
+  text-align: center;
+
+  background-color: #f2f2f2;
+}
 
 
 /* テーブル全体の基本設定 */
@@ -99,6 +105,17 @@ body {
   /* font-weight: bold; */
 }
 
+/* ひなたフェス対応 */
+.hinata {
+  color: #5bbde3;
+  /* font-weight: bold; */
+}
+
+.hinatasub {
+  color: #7e1281;
+  /* font-weight: bold; */
+}
+
 .type,
 .dest {
   text-align: left;
@@ -128,12 +145,15 @@ body {
 
 
 .sta_link_list {
-  width: min(100%,600px);
+  background-color: #ffffff;
+  margin: 0 auto;
+  width: min(100%, 600px);
   border-collapse: collapse;
   /* 枠線を1本線にする */
 }
 
-.sta_link_list th, .sta_link_list td {
+.sta_link_list th,
+.sta_link_list td {
   border: 1px solid #ccc;
   /* 枠線の太さと色 */
   padding: 8px;
@@ -143,6 +163,6 @@ body {
 }
 
 .sta_link_list th {
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   /* 見出しの背景色 */
 }

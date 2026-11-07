@@ -1,0 +1,168 @@
+body {
+  font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    "Noto Sans JP",
+    sans-serif;
+}
+
+.foot {
+  margin-top: 80px;
+  text-align: center;
+
+  background-color: #f2f2f2;
+}
+
+
+/* テーブル全体の基本設定 */
+.timetable {
+  color:#464646;
+  width: min(100%, 800px);
+  /* 幅の指定が必須 */
+  margin: 0 auto;
+  /* 左右の余白が自動で均等になる */
+  border-collapse: collapse;
+  /* font-family: "Arial", "BIZ UDGothic"; */
+}
+
+.timetable th,
+.timetable td {
+  vertical-align: middle;
+  border: 1px solid #ccc;
+  height: 24px;
+}
+
+.timetable th {
+  color:white;
+  background-color: rgb(91, 190, 229);
+}
+
+/* 時間軸の列 */
+.hour {
+  background-color: rgb(91, 190, 229);
+  color:white;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: top;
+  font-size: 1.1rem;
+  width: 25px;
+}
+
+
+/* 数字幅を固定 */
+.minutes {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 分と文字ブロックを横に並べる */
+.time-item {
+  display: inline-flex;
+  align-items: center;
+  /* 数字と右側ブロックの上下中央を合わせる */
+  padding: 1px 1px 1px 3px;
+  /* 時間ごとの間隔 */
+  height: 30px;
+  width: max(95px, 15%);
+}
+
+/* 2桁の分（数字） */
+.num {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* 種別と行き先を縦に2行積む */
+.labels {
+  display: flex;
+  flex-direction: column;
+  /* 縦並びにする */
+  font-size: 0.65em;
+  /* 文字サイズを小さく */
+  line-height: 1.1;
+  /* 行間を詰める */
+  margin-left: 2px;
+  /* 数字との隙間 */
+  text-align: left;
+}
+
+
+.local {
+  color: #000000;
+  /* font-weight: bold; */
+}
+
+.express {
+  color: #EFA6B8;
+  /* font-weight: bold; */
+}
+
+
+.rapid {
+  color: #006eff;
+  /* font-weight: bold; */
+}
+
+.linear {
+  color: #3a8f06;
+  /* font-weight: bold; */
+}
+
+/* ひなたフェス対応 */
+.hinata {
+  color: rgb(91, 190, 229);
+  /* font-weight: bold; */
+}
+
+.hinatasub {
+  color: #7e1281;
+  /* font-weight: bold; */
+}
+
+.type,
+.dest {
+  text-align: left;
+  display: block;
+  /* 高さを有効化 */
+  min-height: 1.1em;
+  /* line-height と同じ高さ（1文字分）を確保 */
+}
+
+/* 凡例 */
+.timetable .legends th {
+  border: none;
+  color: #000000;  
+  background-color: #ffffff;
+  font-size: 0.75rem;
+  height: 16px;
+}
+
+.timetable .legends td {
+  border: none;
+  font-size: 0.75rem;
+  height: 16px;
+}
+
+.timetable .legends tr {
+  padding: 0px;
+}
+
+
+.sta_link_list {
+  background-color: #ffffff;
+  margin: 0 auto;
+  width: min(100%, 600px);
+  border-collapse: collapse;
+  /* 枠線を1本線にする */
+}
+
+.sta_link_list th,
+.sta_link_list td {
+  border: 1px solid #ccc;
+  /* 枠線の太さと色 */
+  padding: 8px;
+  /* セル内の余白 */
+  text-align: left;
+  /* 文字位置（left/center/right） */
+}
+

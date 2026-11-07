@@ -187,6 +187,9 @@ def write_page(station, pd_sta, dict_station):
 
     # 時刻表作成
     for year in excel_files:
+        css_name ="<link href=\"../css/style.css\" rel=\"stylesheet\" type=\"text/css\" media=\"all\">"
+        if "ひなた" in year:
+            css_name="<link href=\"../css/style_hinata.css\" rel=\"stylesheet\" type=\"text/css\" media=\"all\">"
 
         html_codes = (
             get_head(station, year, dict_station[year])
@@ -194,7 +197,7 @@ def write_page(station, pd_sta, dict_station):
             + get_table(station, year, dict_station[year])
         )
 
-        final_html = template.format(insert=html_codes, station_pulldown=pd_sta)
+        final_html = template.format(insert=html_codes, station_pulldown=pd_sta,css_info=css_name)
 
         # フォルダが存在しない場合のみ作成
         doc_path = Path("../docs/" + station)

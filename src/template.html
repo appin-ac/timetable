@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>宮崎時刻表</title>
-    <link href="../css/style.css" rel="stylesheet" type="text/css" media="all">
-
+    {css_info}
      <!-- OGP -->
     <meta property="og:title" content="新・せかPの部屋">
     <meta property="og:description" content="せかPの新しいホームページ。">
@@ -21,14 +20,14 @@
 </head>
 
 <body>
-    {insert}
-     <div style="text-align: center;">
     <p>
-         {station_pulldown}
-    </p>
-    <p>
+        {insert}
+    <div class="foot">
+        <h2>他の駅の時刻表</h2>
+      {station_pulldown}
         <a href="../index.html">ホームに戻る </a>　
     </p> 
+    
     </div>
 </body>
 
