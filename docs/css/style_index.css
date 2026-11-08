@@ -89,12 +89,13 @@
 }
 
 .main_contents {
-     display: grid;
+    display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     text-align: left;
     margin: 50px 10%;
 }
+
 .article-list {
     list-style: none;
     padding: 0;
@@ -126,6 +127,7 @@ article time {
     color: #666;
     font-size: 0.9rem;
 }
+
 @keyframes slide {
     0% {
         transform: translateX(0);
@@ -163,8 +165,7 @@ article time {
     }
 
     .main_contents {
-          grid-template-columns: 1fr;
-        text-align: center;
+        grid-template-columns: 1fr;
         margin: 20px 0%;
     }
 }
@@ -172,21 +173,22 @@ article time {
 
 
 .sta_link_list {
-  width: min(100%,600px);
-  border-collapse: collapse;
-  /* 枠線を1本線にする */
+    width: min(100%, 600px);
+    border-collapse: collapse;
+    /* 枠線を1本線にする */
 }
 
-.sta_link_list th, .sta_link_list td {
-  border: 1px solid #ccc;
-  /* 枠線の太さと色 */
-  padding: 8px;
-  /* セル内の余白 */
-  text-align: left;
-  /* 文字位置（left/center/right） */
+.sta_link_list th,
+.sta_link_list td {
+    border: 1px solid #ccc;
+    /* 枠線の太さと色 */
+    padding: 8px;
+    /* セル内の余白 */
+    text-align: left;
+    /* 文字位置（left/center/right） */
 }
 
 .sta_link_list th {
-  background-color: #f2f2f2;
-  /* 見出しの背景色 */
+    background-color: #f2f2f2;
+    /* 見出しの背景色 */
 }

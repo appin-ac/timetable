@@ -33,7 +33,7 @@
 
             <picture>
                 <source media="(max-width: 767px)" srcset="./img/main_head_1_s.jpg">
-                <img src="./img/main_head_1.jpg" alt="">
+                <img src="./img/main_head_4.jpg" alt="">
             </picture>
 
             <picture>
@@ -48,7 +48,7 @@
 
             <picture>
                 <source media="(max-width: 767px)" srcset="./img/main_head_1_s.jpg">
-                <img src="./img/main_head_1.jpg" alt="">
+                <img src="./img/main_head_4.jpg" alt="">
             </picture>
 
 
@@ -60,7 +60,7 @@
     </div>
     <div class="main_contents">
         <div class="item">
-            <h1>お知らせ</h1>
+            <h2>お知らせ</h2>
             <ul class="article-list">
                 <li>
                     <time>
@@ -77,8 +77,9 @@
 
                 </li>
             </ul>
-            <h1>ブログ 一覧</h1>
-            <p>なんか書きます。</p>
+        </div>
+        <div class="item">
+            <h2>ブログ 一覧</h2>
             {% if articles %}
             <ul class="article-list">
                 {% for article in articles %}
@@ -96,9 +97,11 @@
             <p>記事はまだありません。</p>
             {% endif %}
         </div>
+    </div>
+    <div class="main_contents">
         <div class="item">
-            <h1>宮崎県内主要駅時刻表（1991～2026）</h1>
-            <p>下のリンクから路線・駅を選択すると最新の時刻表を閲覧できます。<br>
+            <h2>宮崎県内主要駅時刻表</h2>
+            <p>リンクから路線・駅を選択すると最新の時刻表を閲覧できます。<br>
                 時刻表のページでは、他の年のデータを選択することができます。1991年から約5年ごとのデータを閲覧できます。
             </p>
             <p>
@@ -107,13 +110,6 @@
 
             <hr>
         </div>
-        <div class="item">
-            <h3>Under Construction</h3>
-            <p>
-                今後の更新をお楽しみに！
-            </p>
-        </div>
-
     </div>
 </body>
 
