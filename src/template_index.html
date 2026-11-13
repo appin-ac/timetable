@@ -60,6 +60,25 @@
     </div>
     <div class="main_contents">
         <div class="item">
+            <h2>おしらせ</h2>
+            {% if info_articles %}
+            <ul class="article-list">
+                {% for info_article in info_articles %}
+                <li>
+                    <time datetime="{{ info_article.date }}">
+                        {{ info_article.date | replace("-", ".")}}
+                    </time>
+                    <a href="{{ info_article.url_x }}">
+                        {{ info_article.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>記事はまだありません。</p>
+            {% endif %}
+        </div>
+        <!-- <div class="item">
             <h2>お知らせ</h2>
             <ul class="article-list">
                 <li>
@@ -77,9 +96,9 @@
 
                 </li>
             </ul>
-        </div>
+        </div> -->
         <div class="item">
-            <h2>ブログ 一覧</h2>
+            <h2>ブログ</h2>
             {% if articles %}
             <ul class="article-list">
                 {% for article in articles %}

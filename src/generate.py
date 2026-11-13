@@ -12,8 +12,10 @@ BASE_DIR = Path(__file__).resolve().parent
 
 
 ROOT = BASE_DIR.parent
-ARTICLES_DIR = ROOT / "articles"
-OUTPUT_DIR = ROOT / "docs" / "blog"
+BLOG_DATA_DIR = ROOT / "articles"
+INFO_DATA_DIR = ROOT / "informations"
+BLOG_DIR = ROOT / "docs" / "blog"
+INFO_DIR = ROOT / "docs" / "info"
 env = Environment(
     loader=FileSystemLoader(ROOT/"src"),
     autoescape=True,
@@ -268,6 +270,7 @@ def get_table(station, year, dict):
     return table_codes
 
 def load_article(path):
+    print(path)
     """Markdownファイルからメタデータと本文を読み込む。"""
     source = path.read_text(encoding="utf-8")
 
@@ -299,24 +302,35 @@ def load_article(path):
 
     body_source = parts[2].strip()
     body = markdown.markdown(body_source)
+    if ("informations" in str(path)):
+        return {
+            "title": title,
+            "date": date_text,
+            "parsed_date": parsed_date,
+            "body": body,
+            "url": f"{path.stem}.html",
+            "url_x": f"./info/{path.stem}.html",
+            "filename": path.stem,
+        }
 
-    return {
-        "title": title,
-        "date": date_text,
-        "parsed_date": parsed_date,
-        "body": body,
-        "url": f"{path.stem}.html",
-        "url_x": f"./blog/{path.stem}.html",
-        "filename": path.stem,
-    }
+    else :
+        return {
+            "title": title,
+            "date": date_text,
+            "parsed_date": parsed_date,
+            "body": body,
+            "url": f"{path.stem}.html",
+            "url_x": f"./blog/{path.stem}.html",
+            "filename": path.stem,
+        }
 
 
 def blog_update(pulldown_part):
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    BLOG_DIR.mkdir(parents=True, exist_ok=True)
 
     articles = []
 
-    for path in sorted(ARTICLES_DIR.glob("*.md")):
+    for path in sorted(BLOG_DATA_DIR.glob("*.md")):
         article = load_article(path)
         articles.append(article)
 
@@ -326,7 +340,7 @@ def blog_update(pulldown_part):
             body=article["body"],
         )
 
-        output_path = OUTPUT_DIR / article["url"]
+        output_path = BLOG_DIR / article["url"]
         output_path.write_text(html, encoding="utf-8")
 
         print(f"生成: {output_path.relative_to(ROOT)}")
@@ -340,7 +354,38 @@ def blog_update(pulldown_part):
         reverse=True,
     )
 
-    index_html = index_template.render(pulldown_main=pulldown_part,articles=articles)
+    # お知らせ
+    INFO_DIR.mkdir(parents=True, exist_ok=True)
+
+    info_articles = []
+
+    for path in sorted(INFO_DATA_DIR.glob("*.md")):
+        info_article = load_article(path)
+        info_articles.append(info_article)
+
+        html = article_template.render(
+            title=info_article["title"],
+            date=info_article["date"],
+            body=info_article["body"],
+        )
+
+        output_path = INFO_DIR / info_article["url"]
+        output_path.write_text(html, encoding="utf-8")
+
+        print(f"生成: {output_path.relative_to(ROOT)}")
+
+    # 日付の新しい順。同じ日付ならファイル名順
+    info_articles.sort(
+        key=lambda article: (
+            article["parsed_date"],
+            article["filename"],
+        ),
+        reverse=True,
+    )
+    #print(info_articles)
+
+    # index page
+    index_html = index_template.render(pulldown_main=pulldown_part,articles=articles,info_articles=info_articles)
 
     (ROOT / "docs" / "index.html").write_text(
         index_html,
