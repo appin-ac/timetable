@@ -7,6 +7,26 @@ body {
     color: #333;
 }
 
+
+.header {
+  display: flex;
+  justify-content: space-between; /* 左と右に分ける */
+  align-items: center;            /* 上下の中心をそろえる */
+  padding: 16px 24px;
+}
+
+.logo img {
+  height: 32px;
+}
+
+.nav {
+  display: flex;   /* メニューを横に並べる */
+  gap: 24px;       /* 項目と項目の間隔 */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* 
 .site-header {
     background: #fbfafa;
     color: #db1d2b;
@@ -22,7 +42,7 @@ header a {
     font-size: 1.3rem;
     font-weight: bold;
     text-decoration: none;
-}
+} */
 
 main {
     margin: 32px 0;

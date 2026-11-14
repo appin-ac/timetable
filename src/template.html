@@ -6,28 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>宮崎時刻表</title>
     {css_info}
-     <!-- OGP -->
+    <!-- OGP -->
     <meta property="og:title" content="新・せかPの部屋">
     <meta property="og:description" content="せかPの新しいホームページ。">
     <meta property="og:type" content="website">
-    <meta property="og:url"
-          content="https://appin-ac.github.io/timetable/index.html">
-    <meta property="og:image"
-          content="https://appin-ac.github.io/timetable/img/share.jpg">
+    <meta property="og:url" content="https://appin-ac.github.io/timetable/index.html">
+    <meta property="og:image" content="https://appin-ac.github.io/timetable/img/share.jpg">
 
     <!-- X（Twitter）向け -->
     <meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body>
+    <header class="header">
+        <a href="../index.html" class="logo">
+            <img src="../img/logo.svg" alt="seka.hp" id="index_head">
+        </a>
+
+        <nav>
+            <ul class="nav">
+                <li><a href="https://note.com/seka314">note</a></li>
+            </ul>
+        </nav>
+    </header>
     <p>
         {insert}
     <div class="foot">
         <h2>他の駅の時刻表</h2>
-      {station_pulldown}
+        {station_pulldown}
         <a href="../index.html">ホームに戻る </a>　
-    </p> 
-    
+        </p>
+
     </div>
 </body>
 
