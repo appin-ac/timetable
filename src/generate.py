@@ -24,6 +24,7 @@ env = Environment(
 article_template = env.get_template("article.html")
 index_template = env.get_template("template_index.html")
 
+
 ### main ###
 def main():
 
@@ -31,7 +32,7 @@ def main():
     folder_path = Path("../data")
     # サブフォルダの Path オブジェクトのリストを取得
     subfolders = [f.name for f in folder_path.iterdir() if f.is_dir()]
-    print(subfolders)
+    #print(subfolders)
 
     # 時刻表ファイルのデータをリストに格納
     index_info = {}
@@ -43,7 +44,7 @@ def main():
     with open("./template_index.html", "r", encoding="utf-8") as f:
         index_page = f.read()
 
-    print(get_station_pulldown(index_info,0))
+    #print(get_station_pulldown(index_info,0))
 
     
     # with open("../docs/index.html", "w", encoding="utf-8") as f:
@@ -51,13 +52,14 @@ def main():
 
     # 駅ごとに時刻表を更新
     for station in subfolders:
-        print(station)
+        #print(station)
         write_page(station, pd_sta, index_info[station])
 
-
+    
+    all_list = get_timetable_list(index_info)
 
     # ブログ+infrx更新
-    blog_update(get_station_pulldown(index_info,0))
+    blog_update(get_station_pulldown(index_info,0), all_list)
 
 
 def correct_data_files(subfolders,index_info):
@@ -66,8 +68,8 @@ def correct_data_files(subfolders,index_info):
         json_files = [
             f.stem for f in folder_pathx.iterdir() if f.suffix.lower() == ".json"
         ]
-        print(folder_pathx)
-        print(json_files)
+        #print(folder_pathx)
+        #print(json_files)
         if len(json_files) == 0:
             return
         station_dict_list = {}
@@ -106,7 +108,7 @@ def get_station_pulldown(index_info, depth=1):
     line_dict={}
     for station in index_info:
 
-        print("../data/" + station)
+        #print("../data/" + station)
 
         latest_year = next(reversed(index_info[station]))
 
@@ -157,6 +159,29 @@ def get_station_pulldown(index_info, depth=1):
     pd_html += ("</table>\n")
     # print(pd_html)
 
+    return pd_html
+
+
+def get_timetable_list(index_info):
+    i = 0
+    pd_html = "<p>時刻表一覧\n<br>\n"
+    for station in index_info:
+
+        for year in index_info[station].keys():
+            i +=1
+            print(station+" "+year)
+            dict = index_info[station][year]
+            pd_html +=  (
+                '<a href="'
+                + "./" + station + "/" + year  + '.html">'
+                + dict["station_name"] + " "
+                + ("（" + dict["direction_sub"] + "）" if dict["direction_sub"] != "" else "")
+                + dict["direction_main"]+ " "
+                + year + "（" 
+                +  dict["revision_date"]+ "改正）"
+                + "</a><br>\n"
+            )
+    pd_html +=  f"計{i}件<br></p>"
     return pd_html
 
 ### station の各年の時刻表をまとめて更新
@@ -270,7 +295,7 @@ def get_table(station, year, dict):
     return table_codes
 
 def load_article(path):
-    print(path)
+    #print(path)
     """Markdownファイルからメタデータと本文を読み込む。"""
     source = path.read_text(encoding="utf-8")
 
@@ -325,7 +350,10 @@ def load_article(path):
         }
 
 
-def blog_update(pulldown_part):
+def blog_update(pulldown_part, all_list):
+
+
+    ### ブログ　########################################
     BLOG_DIR.mkdir(parents=True, exist_ok=True)
 
     articles = []
@@ -343,7 +371,7 @@ def blog_update(pulldown_part):
         output_path = BLOG_DIR / article["url"]
         output_path.write_text(html, encoding="utf-8")
 
-        print(f"生成: {output_path.relative_to(ROOT)}")
+        #print(f"生成: {output_path.relative_to(ROOT)}")
 
     # 日付の新しい順。同じ日付ならファイル名順
     articles.sort(
@@ -354,7 +382,7 @@ def blog_update(pulldown_part):
         reverse=True,
     )
 
-    # お知らせ
+    ### お知らせ ######################################
     INFO_DIR.mkdir(parents=True, exist_ok=True)
 
     info_articles = []
@@ -372,7 +400,7 @@ def blog_update(pulldown_part):
         output_path = INFO_DIR / info_article["url"]
         output_path.write_text(html, encoding="utf-8")
 
-        print(f"生成: {output_path.relative_to(ROOT)}")
+        #print(f"生成: {output_path.relative_to(ROOT)}")
 
     # 日付の新しい順。同じ日付ならファイル名順
     info_articles.sort(
@@ -382,17 +410,15 @@ def blog_update(pulldown_part):
         ),
         reverse=True,
     )
-    #print(info_articles)
 
-    # index page
-    index_html = index_template.render(pulldown_main=pulldown_part,articles=articles,info_articles=info_articles)
+    ###  index page ###########################
+    index_html = index_template.render(pulldown_main=pulldown_part,articles=articles,info_articles=info_articles, all_timetable_link=all_list)
 
     (ROOT / "docs" / "index.html").write_text(
         index_html,
         encoding="utf-8",
     )
-
-    print("生成: blog/index.html")
+    #print("生成: blog/index.html")
 
 
 if __name__ == "__main__":
