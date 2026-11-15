@@ -1,0 +1,12 @@
+{
+    "line_name": "日豊本線",
+    "station_name": "宮崎駅",
+    "direction": {
+        "main": "延岡・佐伯方面",
+        "sub": "上り"
+    },
+    "revision_date": "2005年3月?日",
+        "ledgends": {
+        "※1": "土休日運休"
+    }
+}
