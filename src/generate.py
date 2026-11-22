@@ -104,7 +104,7 @@ def correct_data_files(subfolders,index_info):
 def get_station_pulldown(index_info, depth=1):
 
     # pd_html = '<select onchange="if(this.value) location.href=this.value;">\n<option value="">路線・駅を選択してください</option>\n'
-    pd_html = "<table class=\"sta_link_list\">\n"#"<b>掲載駅リスト</b>\n"  <tr><th>路線</th><th>駅</th></tr>
+    pd_html = "<table class=\"sta_link_list\">\n<tbody>\n"#"<b>掲載駅リスト</b>\n"  <tr><th>路線</th><th>駅</th></tr>
     line_dict={}
     for station in index_info:
 
@@ -137,7 +137,7 @@ def get_station_pulldown(index_info, depth=1):
         # pd_html += page_title+"</option>\n"
 
         page_link =  (
-            '<a href="'
+            '\t\t<a href="'
             + "." * depth + "./" + station + "/" + latest_year  + '.html">'
             + dict["station_name"] + " "
             + ("（" + dict["direction_sub"] + "）" if dict["direction_sub"] != "" else "")
@@ -151,12 +151,12 @@ def get_station_pulldown(index_info, depth=1):
 
     # pd_html += "</select><br><br>\n"
 
-    for k,v in line_dict.items():
-        pd_html += ("<tr><td><b>"+k+"</b></td>\n<td>")
-        for x in v:
-            pd_html += x
-        pd_html +=("</td></tr>\n")
-    pd_html += ("</table>\n")
+    for line_name,station_list in line_dict.items():
+        pd_html += ("<tr>\n\t<td><b>"+line_name+"</b></td>\n\t<td>\n")
+        for staion in station_list:
+            pd_html += staion
+        pd_html +=("\t</td>\n</tr>\n")
+    pd_html += ("</tbody>\n</table>\n")
     # print(pd_html)
 
     return pd_html
@@ -201,7 +201,7 @@ def write_page(station, pd_sta, dict_station):
     # 年選択プルダウン作成
     for csv_file in excel_files:
         pd_year += (
-            '<option value="../'
+            '\t<option value="../'
             + station
             + "/"
             + csv_file
@@ -210,7 +210,7 @@ def write_page(station, pd_sta, dict_station):
             + "</option>\n"
         )
 
-    pd_year += "</select>\n<br></div>"
+    pd_year += "</select>\n<br>\n</div>\n"
 
     # 時刻表作成
     for year in excel_files:
@@ -239,13 +239,13 @@ def write_page(station, pd_sta, dict_station):
 
 def get_head(station, year, dict):
     head_codes = (
-        '<div style="text-align: center;"><p><b>'
+        '<div style="text-align: center;"><h1>'
         + dict["line_name"]
         + "　"
         + dict["station_name"]
-        + "　時刻表</b><br>"
+        + "　時刻表</h1>"
         + dict["revision_date"]
-        + "改正</p></div>\n"
+        + "改正</div>\n"
     )
 
     return head_codes
@@ -265,32 +265,32 @@ def get_table(station, year, dict):
 
     ### HTML 生成
     table_codes = (
-        '<table class="timetable"><thead><tr><th>時</th><th>'
+        '<table class="timetable">\n<thead>\n<tr>\n<th  scope="col">時</th><th scope="col">'
         + dict["direction_main"]
-        + "</th></tr></thead>"
+        + "</th></tr></thead>\n<tbody>\n"
     )
 
     # hour ごとにグループ化
     for hour, group in groupby(rows, key=lambda x: x["hour"]):
-        table_codes += f'<tr>\n<td class="hour">{hour}</td>\n<td class="minutes">\n'
+        table_codes += f'<tr>\n\t<td class="hour">{hour}</td>\n\t<td class="minutes">\n'
         for t in group:
             type_span = f'<span class="type">{html.escape(t["type"])}</span>'
             # if t["type"] else ""
             dest_span = f'<span class="dest">{html.escape(t["dest"])}{html.escape(t["rem"])}</span>'
             # if t["dest"] else ""
-            table_codes += f'<span class="time-item {t["color"]}"><span class="num">{str(html.escape(t["minute"])).zfill(2)}</span><span class="labels">{type_span}{dest_span}</span></span>'
-        table_codes += "</td></tr>\n"
+            table_codes += f'\t\t<span class="time-item {t["color"]}"><span class="num">{str(html.escape(t["minute"])).zfill(2)}</span><span class="labels">{type_span}{dest_span}</span></span>\n'
+        table_codes += "\t</td>\n</tr>\n"
     table_codes += '<tr><td colspan="2">\n'  # <b>【凡例】</b><br>
     if "ledgends" in dict.keys():
         # print(dict["ledgends"])
         table_codes += (
-            '<table class="legends"><thead><tr><th>備考</th><tr></thead><tbody>\n'
+            '<table class="legends"><thead><tr>\n<th  scope="col">備考</th></tr></thead><tbody>\n'
         )
         for k, v in dict["ledgends"].items():
-            table_codes += "<tr><td>" + k + "</td><td>" + v + "</td></tr>\n"
-        table_codes += "</tbody></table></td></tr>"
+            table_codes += "<tr><td>" + k + "</td><td>" + v + "</td>\n</tr>\n"
+        table_codes += "</tbody></table></td></tr>\n"
 
-    table_codes += "</table>"
+    table_codes += "</tbody>\n</table>"
 
     return table_codes
 

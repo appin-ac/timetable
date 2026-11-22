@@ -64,7 +64,7 @@
     box-shadow: inset 0 -5px #f08f20;
 }
 
-.body {
+body {
     font-family: "Helvetica Neue",
         Arial,
         "Hiragino Kaku Gothic ProN",
@@ -72,6 +72,18 @@
         "Noto Sans JP",
         sans-serif;
 }
+
+h1 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
 
 
 .slideshow {
